@@ -13,14 +13,14 @@ params:
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
 ```{R}
-#| eval: false
-
-# INSERT CODE FROM EXAMPLE REPO README.qmd
+#| eval: true
+library(jsonlite)
+metadata <- read_json("codemeta.json")
 ```
 
 # Cross-referencing `r params$ecosystem_survey_name` to the IUCN Global Ecosystem Typology: 90m Best-Candidate Spatial Synthesis
 
-**Version:** `r zenodo_meta$version`  
+**Version:** `r metadata$version`  
 **Release Date:** `r format(Sys.Date(), "%Y-%m-%d")`  
 **Dataset License:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (with source spatial data attribution to [TASVEG 5.0 © State of Tasmania](https://www.theLIST.tas.gov.au) under [CC BY 3.0 AU](http://creativecommons.org/licenses/by/3.0/au/))  
 **Code License:** MIT  

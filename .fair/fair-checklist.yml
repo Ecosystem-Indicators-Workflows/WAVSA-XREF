@@ -3,7 +3,7 @@
 # Use this file only for what cannot be detected. Leave a field empty if unused.
 
 # Workflow name shown on the plot when run outside GitHub Actions.
-name:
+name: WAVSA-XREF
 
 # Repository visibility when run locally (GitHub Actions detects it itself).
 public: false
@@ -12,7 +12,7 @@ public: false
 website:
 
 # File formats the workflow writes, if outputs are not committed (e.g. [csv, tif]).
-formats: []
+formats: [csv, tif]
 
 # Set to true if all input data are committed to the repository.
 data_included: false
