@@ -7,3 +7,5 @@
 .venv
 .env_local
 data/source-data
+results/*/*
+.vscode/*
