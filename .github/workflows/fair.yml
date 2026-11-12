@@ -1,0 +1,39 @@
+name: FAIR check
+
+# Runs after every merge to main (a merge is a push to main) and on demand.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # tags are needed for the versioning check
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install R packages
+        run: Rscript -e 'install.packages(c("ggplot2", "yaml", "jsonlite"))'
+
+      - name: Score repository
+        env:
+          REPO_PRIVATE: ${{ github.event.repository.private }}
+        run: Rscript .fair/fair_check.R
+
+      # Pushes made with GITHUB_TOKEN do not trigger another workflow run.
+      - name: Commit updated README and plot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add fair README.md
+          git diff --cached --quiet || git commit -m "Update FAIR assessment [skip ci]"
+          git push

@@ -1,0 +1,74 @@
+---
+format:
+  gfm:
+    output-file: README.md
+execute:
+  echo: false
+  warning: false
+  message: false
+params:
+  ecosystem_survey_name: "Tasmanian Terrestrial Ecosystems (TASVEG 5.0)"
+---
+
+<!-- README.md is generated from README.qmd. Please edit that file -->
+
+```{R}
+#| eval: false
+
+# INSERT CODE FROM EXAMPLE REPO README.qmd
+```
+
+# Cross-referencing `r params$ecosystem_survey_name` to the IUCN Global Ecosystem Typology: 90m Best-Candidate Spatial Synthesis
+
+**Version:** `r zenodo_meta$version`  
+**Release Date:** `r format(Sys.Date(), "%Y-%m-%d")`  
+**Dataset License:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (with source spatial data attribution to [TASVEG 5.0 © State of Tasmania](https://www.theLIST.tas.gov.au) under [CC BY 3.0 AU](http://creativecommons.org/licenses/by/3.0/au/))  
+**Code License:** MIT  
+**Workflow Repository:** <https://github.com/Ecosystem-Indicators-Workflows/TASVEG-XREF>
+
+> *Note: This `README.md` is dynamically generated from [`README.qmd`](README.qmd) by inspecting the output GeoTIFFs and CSV tables. To update all statistics after regenerating the data, run `quarto render output-best-candidate/README.qmd`.*
+
+---
+
+## Authors & Contributors
+
+- **J. R. Ferrer-Paris** (Corresponding author: `j.ferrer@unsw.edu.au`, ORCID: [0000-0002-9554-3395](https://orcid.org/0000-0002-9554-3395)) — *Centre for Ecosystem Science, UNSW Sydney; IUCN Commission on Ecosystem Management*
+- **David A. Keith** — *Centre for Ecosystem Science, UNSW Sydney; IUCN Commission on Ecosystem Management*
+- **Mark G. Tozer** — *Centre for Ecosystem Science, UNSW Sydney*
+- **Elliot Gould** (ORCID: [0000-0002-6585-538X](https://orcid.org/0000-0002-6585-538X)) — *Centre for Ecosystem Science, UNSW Sydney*
+- **Abhimanyu Raj Singh** (ORCID: [0000-0002-2279-7060](https://orcid.org/0000-0002-2279-7060)) — *QCIF; Centre for Ecosystem Science, UNSW Sydney*
+- **placeholder** — *placeholder
+
+
+
+**Author Contributions:** A1 led the expert elicitation process. A1, A2, A3, A4, and A5 contributed membership tables for cross-referencing. JRFP led the technical documentation and synthesis workflow. JRFP, EG, and ARS contributed scripts for data preparation, validation, analysis, and spatial output generation.
+
+
+# Repository Checklist
+
+<!-- Delete this section once you have completed the checklist.  -->
+
+- [ ] Update `CITATION.cff` with the correct title and authorship information.
+- [ ] Update `README.qmd` with the correct title and authorship information in the YAML header and the `params$variable` variables.
+- [ ] Update `references.bib` with all output datasets, for example:
+
+```
+@dataset{OUTPUT1_best_candidate,
+  author       = {Ferrer-Paris, J. R. and
+                  Tozer, Mark G. and
+                  Gould, Elliot and
+                  Singh, Abhimanyu Raj and
+                  Balmer, Jayne and
+                  Kitchener, Anne and
+                  Latinovic, Adelina and
+                  Keith, David A.},
+  title        = {Cross-referencing Tasmanian vegetation map (TASVEG
+                   5.0) to the IUCN Global Ecosystem Typology: 90m
+                   Best-Candidate Spatial Synthesis
+                  },
+  month        = nov,
+  year         = 2026,
+  publisher    = {Zenodo},
+  version      = {0.1.0},
+}
+```

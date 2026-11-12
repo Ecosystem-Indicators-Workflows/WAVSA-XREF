@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+title: >-
+  Cross-referencing the `<name-of-the-vegetation-survey>` of `<place>` to the IUCN Global Ecosystem Typology
+message: >-
+  If you use these scripts and dataset, please cite it using
+  the metadata from this file.
+type: dataset
+authors:
+  - given-names: José R.
+    family-names: Ferrer-Paris
+    email: j.ferrer@unsw.edu.au
+    affiliation: UNSW Sydney
+    orcid: 'https://orcid.org/0000-0002-9554-3395'
+  - given-names: Mark G.
+    family-names: Tozer
+    affiliation: UNSW Sydney
+    orcid: 'https://orcid.org/0000-0002-7373-0077'
+  - given-names: David A.
+    family-names: Keith
+    affiliation: UNSW Sydney
+    orcid: 'https://orcid.org/0000-0002-7373-0077'
+  - given-names: Elliot  
+    family-names: Gould
+    affiliation: UNSW Sydney
+    email: elliot.gould@unsw.edu.au
+    orcid: 'https://orcid.org/0000-0002-6585-538X'
+  - given-names: Abhimanyu Raj
+    family-names: Singh
+    affiliation: QCIF, UNSW Sydney
+    email: abhimanyu.singh@unsw.edu.au
+    orcid: 'https://orcid.org/0000-0002-2279-7060'
+  - given-names: PLACEHOLDER
+    family-names: PLACEHOLDER
+    affiliation: PLACEHOLDER
+    orcid: 'https://orcid.org/0000-XXXX-XXX-XXXX'
+repository-code: >-
+  https://github.com/Ecosystem-Indicators-Workflows/TEMPLATE-XREFF
+license: CC-BY-4.0
+commit: <commit-SHA>
+version: 0.0.1
+date-released: '2026-11-10'

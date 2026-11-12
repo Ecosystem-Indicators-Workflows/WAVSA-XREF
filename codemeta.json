@@ -1,0 +1,73 @@
+{
+    "@context": "https://w3id.org/codemeta/3.0",
+    "@type": "SoftwareSourceCode",
+    "name": "TEMPLATE-XREF",
+    "description": "TODO: one or two sentences on what the crosswalk/workflow does",
+    "codeRepository": "https://github.com/Ecosystem-Indicators-Workflows/TEMPLATE-XREF",
+    "issueTracker": "https://github.com/Ecosystem-Indicators-Workflows/TEMPLATE-XREF/issues",
+    "readme": "https://github.com/Ecosystem-Indicators-Workflows/TEMPLATE-XREF/blob/main/README.md",
+    "identifier": "TODO: Zenodo or other DOI once released",
+    "version": "0.1.0",
+    "dateCreated": "TODO: YYYY-MM-DD",
+    "dateModified": "TODO: YYYY-MM-DD",
+    "license": "https://spdx.org/licenses/TODO.html",
+    "developmentStatus": "active",
+    "programmingLanguage": [
+        {
+            "@type": "ComputerLanguage",
+            "name": "R",
+            "url": "https://www.r-project.org/"
+        },
+        {
+            "@type": "ComputerLanguage",
+            "name": "Python",
+            "url": "https://www.python.org/"
+        }
+    ],
+    "runtimePlatform": "TODO: e.g. R >= 4.4, Python >= 3.11",
+    "softwareRequirements": [
+        {
+            "@type": "SoftwareApplication",
+            "name": "TODO: package name",
+            "version": "TODO",
+            "identifier": "TODO",
+            "runtimePlatform": "R"
+        }
+    ],
+    "keywords": [
+        "ecosystem indicators",
+        "IUCN Global Ecosystem Typology",
+        "FAIR",
+        "vocabulary crosswalk",
+        "TODO"
+    ],
+    "author": [
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/TODO",
+            "givenName": "TODO",
+            "familyName": "TODO",
+            "email": "TODO",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "TODO"
+            }
+        }
+    ],
+    "contributor": [],
+    "maintainer": {
+        "@id": "https://orcid.org/TODO"
+    },
+    "isPartOf": {
+        "@type": "SoftwareSourceCode",
+        "name": "Ecosystem Indicator Workflows",
+        "identifier": "https://doi.org/10.3565/j5sq-a757"
+    },
+    "funder": {
+        "@type": "Organization",
+        "name": "Australian Research Data Commons (ARDC)"
+    },
+    "funding": "TODO: grant ID, or delete if not applicable",
+    "referencePublication": [],
+    "continuousIntegration": "TODO: CI URL, or delete"
+}

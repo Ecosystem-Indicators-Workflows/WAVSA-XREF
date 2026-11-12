@@ -1,0 +1,29 @@
+# EIW FAIR check settings for this repository.
+# Most answers are detected from the repository by .fair/fair_check.R.
+# Use this file only for what cannot be detected. Leave a field empty if unused.
+
+# Workflow name shown on the plot when run outside GitHub Actions.
+name:
+
+# Repository visibility when run locally (GitHub Actions detects it itself).
+public: false
+
+# Public web page for the workflow: Quarto site, WorkflowHub or catalogue entry.
+website:
+
+# File formats the workflow writes, if outputs are not committed (e.g. [csv, tif]).
+formats: []
+
+# Set to true if all input data are committed to the repository.
+data_included: false
+
+# Raise a target above the EIW default, e.g. "r:q1": 3 for R/Python packages.
+targets: {}
+
+# Replace an automatic answer. Give the evidence in has / needs.
+# "f:q0": {score: 3, has: "Listed on WorkflowHub", needs: ""}
+overrides: {}
+
+# Workflow-specific wording for a gap, shown while the target is not met.
+# "i:q3": "No links to BCCVL/Kepler, dismo or MaxEnt"
+hints: {}
