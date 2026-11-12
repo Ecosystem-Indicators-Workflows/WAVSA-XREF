@@ -7,5 +7,7 @@
 .venv
 .env_local
 data/source-data
-results/*/*
 .vscode/*
+results/*/*
+!results/*/README.qmd
+*/air.toml
