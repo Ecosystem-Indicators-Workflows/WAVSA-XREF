@@ -10,7 +10,7 @@
     "version": "0.1.0",
     "dateCreated": "2026-11-12",
     "dateModified": "TODO: YYYY-MM-DD",
-    "license": "https://spdx.org/licenses/TODO.html",
+    "license": "https://spdx.org/licenses/MIT",
     "developmentStatus": "active",
     "programmingLanguage": [
         {
@@ -20,7 +20,7 @@
         },
         {
             "@type": "ComputerLanguage",
-            "name": "Python",
+            "name": "Python 3",
             "url": "https://www.python.org/"
         }
     ],
