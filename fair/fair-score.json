@@ -1,0 +1,197 @@
+{
+  "repository": "Ecosystem-Indicators-Workflows/WAVSA-XREF",
+  "commit": "7520797",
+  "date": "2026-11-12",
+  "checklist": "ARDC FAIR Software Checklist v0.2",
+  "ardc_url": "https://fairsoftwarechecklist.net/v0.2?f=21&a=30112&i=31301&r=123",
+  "total": 24,
+  "total_max": 33,
+  "questions_met": 9,
+  "all_met": false,
+  "principles": [
+    {
+      "principle": "Findable",
+      "current": 3,
+      "target": 4,
+      "max": 4,
+      "pct": 75,
+      "_row": "Findable"
+    },
+    {
+      "principle": "Accessible",
+      "current": 7,
+      "target": 10,
+      "max": 10,
+      "pct": 70,
+      "_row": "Accessible"
+    },
+    {
+      "principle": "Interoperable",
+      "current": 8,
+      "target": 12,
+      "max": 12,
+      "pct": 67,
+      "_row": "Interoperable"
+    },
+    {
+      "principle": "Reusable",
+      "current": 6,
+      "target": 6,
+      "max": 7,
+      "pct": 86,
+      "_row": "Reusable"
+    }
+  ],
+  "questions": [
+    {
+      "id": "f:q0",
+      "label": "Indexed by search engines",
+      "current": 2,
+      "target": 3,
+      "max": 3,
+      "met": false,
+      "has": "Hosted on GitHub (basic search indexing)",
+      "needs": "No web page with SEO (Quarto site / WorkflowHub)"
+    },
+    {
+      "id": "f:q1",
+      "label": "Globally unique identifier",
+      "current": 1,
+      "target": 1,
+      "max": 1,
+      "met": true,
+      "has": "GitHub URL is globally unique",
+      "needs": ""
+    },
+    {
+      "id": "a:q0",
+      "label": "Identifier gives a copy",
+      "current": 3,
+      "target": 3,
+      "max": 3,
+      "met": true,
+      "has": "Public repo: anyone can clone it",
+      "needs": ""
+    },
+    {
+      "id": "a:q1",
+      "label": "Persistent identifier (DOI)",
+      "current": 0,
+      "target": 2,
+      "max": 2,
+      "met": false,
+      "has": "",
+      "needs": "No DOI: a GitHub URL can move or vanish"
+    },
+    {
+      "id": "a:q2",
+      "label": "Open retrieval protocol",
+      "current": 1,
+      "target": 1,
+      "max": 1,
+      "met": true,
+      "has": "Retrievable over HTTPS / git",
+      "needs": ""
+    },
+    {
+      "id": "a:q3",
+      "label": "Open or authenticated access",
+      "current": 1,
+      "target": 1,
+      "max": 1,
+      "met": true,
+      "has": "Openly available",
+      "needs": ""
+    },
+    {
+      "id": "a:q4",
+      "label": "Identifier in metadata",
+      "current": 2,
+      "target": 3,
+      "max": 3,
+      "met": false,
+      "has": "Metadata has the repository URL",
+      "needs": "No DOI in CITATION.cff"
+    },
+    {
+      "id": "i:q0",
+      "label": "Open, domain-common formats",
+      "current": 3,
+      "target": 3,
+      "max": 3,
+      "met": true,
+      "has": "Open domain formats: tif",
+      "needs": ""
+    },
+    {
+      "id": "i:q1",
+      "label": "Versioning scheme",
+      "current": 1,
+      "target": 2,
+      "max": 2,
+      "met": false,
+      "has": "Versions are identified",
+      "needs": "Versions do not follow vX.Y.Z"
+    },
+    {
+      "id": "i:q2",
+      "label": "Dependencies specified",
+      "current": 3,
+      "target": 3,
+      "max": 3,
+      "met": true,
+      "has": "Pinned Python environment file",
+      "needs": ""
+    },
+    {
+      "id": "i:q3",
+      "label": "Links to related software",
+      "current": 0,
+      "target": 2,
+      "max": 2,
+      "met": false,
+      "has": "",
+      "needs": "No links to related software (CITATION.cff references)"
+    },
+    {
+      "id": "i:q4",
+      "label": "Links to related data",
+      "current": 1,
+      "target": 2,
+      "max": 2,
+      "met": false,
+      "has": "Data URL in README",
+      "needs": "No data references in CITATION.cff (add input DOIs)"
+    },
+    {
+      "id": "r:q0",
+      "label": "Executable",
+      "current": 1,
+      "target": 1,
+      "max": 1,
+      "met": true,
+      "has": "Run steps, dependencies and data available",
+      "needs": ""
+    },
+    {
+      "id": "r:q1",
+      "label": "Source + documentation",
+      "current": 2,
+      "target": 2,
+      "max": 3,
+      "met": true,
+      "has": "Source code + README",
+      "needs": ""
+    },
+    {
+      "id": "r:q2",
+      "label": "Licence",
+      "current": 3,
+      "target": 3,
+      "max": 3,
+      "met": true,
+      "has": "MIT LICENSE + SPDX id in metadata",
+      "needs": ""
+    }
+  ]
+}
