@@ -11,7 +11,7 @@ Spatial layer url,https://data-downloads.slip.wa.gov.au/DPIRD-006/Shapefile,,,,,
 join_field,sa_code,,,,,,
 Comments,"Revised cross-references of Beard's pre-European vegetation system-association units to GET level 3 after discussions with David Keith, and WA DPIRD staff, with written comments from Carl Gosper",,,,,,
 ,,,,,,,
-System-Association Code,EFG_1 ,memb_1,EFG_2,memb_2,EFG_3,memb_3,sum
+System-Association Code,EFG_1,memb_1,EFG_2,memb_2,EFG_3,memb_3,sum
 1271.1,F2.7,0.7,T5.1,0.3,NA,NA,1
 1271.1,F2.7,0.7,T5.1,0.3,NA,NA,1
 1271.1,F2.7,0.7,T5.1,0.3,NA,NA,1
