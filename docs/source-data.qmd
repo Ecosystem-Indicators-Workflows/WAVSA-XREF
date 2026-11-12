@@ -1,0 +1,17 @@
+---
+title: "Vegetation map for Western Australia"
+bibliography: 
+  - ../references/main.bib
+  - ../references/additional.bib
+---
+
+> The pre-European vegetation mapping of Western Australia dataset is an output of a joint project. It maps original natural vegetation presumed to have existed prior to European settlement in Western Australia. Descriptions of each of the vegetation types can be found in the accompanying memoir.
+
+> The major sources of data in this database are the published and unpublished mapping of J.S. Beard at 1:250,000 scale. There are c 30,000 polygons covering 160 1:250,000 map sheets. Data on the original vegetation of all of Western Australia, with the exception of three map sheets in the south-west corner, were captured from J S Beard’s original working drawings, where these were available, or from published maps, all at the scale of 1:250,000. For the three map sheets in the south-west corner, a new data set was compiled in a form consistent with Beard’s approach, from existing data (A.J.M. Hopkins, unpublished).
+
+@Beard_2013
+
+ classification unit is Vegetation System-Association
+
+
+This link is for scripting and requires token authentication. For more information see the Data WA Help Centre article.
