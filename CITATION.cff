@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: >-
-  Cross-referencing the `<name-of-the-vegetation-survey>` of `<place>` to the IUCN Global Ecosystem Typology
+  Cross-referencing the Vegetation system Associations of Western Australia to the IUCN Global Ecosystem Typology
 message: >-
   If you use these scripts and dataset, please cite it using
   the metadata from this file.
@@ -19,23 +19,9 @@ authors:
     family-names: Keith
     affiliation: UNSW Sydney
     orcid: 'https://orcid.org/0000-0002-7373-0077'
-  - given-names: Elliot  
-    family-names: Gould
-    affiliation: UNSW Sydney
-    email: elliot.gould@unsw.edu.au
-    orcid: 'https://orcid.org/0000-0002-6585-538X'
-  - given-names: Abhimanyu Raj
-    family-names: Singh
-    affiliation: QCIF, UNSW Sydney
-    email: abhimanyu.singh@unsw.edu.au
-    orcid: 'https://orcid.org/0000-0002-2279-7060'
-  - given-names: PLACEHOLDER
-    family-names: PLACEHOLDER
-    affiliation: PLACEHOLDER
-    orcid: 'https://orcid.org/0000-XXXX-XXX-XXXX'
 repository-code: >-
-  https://github.com/Ecosystem-Indicators-Workflows/TEMPLATE-XREFF
+  https://github.com/Ecosystem-Indicators-Workflows/WAVSA-XREF
 license: CC-BY-4.0
-commit: <commit-SHA>
+commit: 19dc049edae78110e1960fa48cce0f8df169de1a
 version: 0.0.1
-date-released: '2026-11-10'
+date-released: '2026-11-12'
