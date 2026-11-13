@@ -6,6 +6,7 @@ pivot_wide_membership_table <- function(
   expert_name = NULL,
   round_nr = NULL
 ) {
+  message("Using `pivot_wide_membership_table` from scripts/functions.R")
   memb_table <- xref |>
     dplyr::select(
       dplyr::any_of(original_names),
