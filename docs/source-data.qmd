@@ -15,3 +15,8 @@ bibliography:
 
 
 This link is for scripting and requires token authentication. For more information see the Data WA Help Centre article.
+
+https://catalogue.data.wa.gov.au/en/dataset/pre-european-dpird-006
+
+CC-BY 4.0
+State of Western Australia, Department of Primary Industries and Regional Development.
