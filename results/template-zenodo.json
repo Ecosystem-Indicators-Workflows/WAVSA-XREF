@@ -8,11 +8,13 @@
     {
       "name": "Ferrer-Paris, J. R.",
       "affiliation": "Centre for Ecosystem Science, UNSW Sydney; IUCN Commission on Ecosystem Management",
-      "orcid": "0000-0002-9554-3395"
+      "orcid": "0000-0002-9554-3395",
+      "role":"author"
     },
     {
       "name": "Tozer, Mark G.",
-      "affiliation": "Centre for Ecosystem Science, UNSW Sydney"
+      "affiliation": "Centre for Ecosystem Science, UNSW Sydney",
+      "role":"author"
     },
     {
       "name": "Gould, Elliot",
@@ -28,7 +30,8 @@
     },
     {
       "name": "Keith, David A.",
-      "affiliation": "Centre for Ecosystem Science, UNSW Sydney; IUCN Commission on Ecosystem Management"
+      "affiliation": "Centre for Ecosystem Science, UNSW Sydney; IUCN Commission on Ecosystem Management",
+      "role":"author"
     }
   ],
   "keywords": [

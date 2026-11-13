@@ -15,7 +15,8 @@
 ## 1) Data preparation
 ## 2) Data validation
 ## 3) Synthesis
-## 4) Outputs in preferred format
+## 4) Read additional data
+## 5) Outputs in preferred format
 
 ## Recommended usage:
 ## R --vanilla < scripts/10-create-output-best-candidate.R
@@ -70,7 +71,7 @@ source(here::here("scripts", "functions.R"))
 ### Predefined parameters
 
 the_round <- 3
-epsg_code <- "EPSG:9473"
+epsg_code <- "EPSG:9473" # Australian Albers
 
 
 ## Step 1: data preparation
@@ -87,16 +88,19 @@ LUT <- read_xlsx(lut_file) |>
     `System-Association Code` = as.character(round(
       `System-Association Code`,
       2
-    ))
+    )),
+    eligible = TRUE
   )
 
 DPIRD_LUT <- lookup_tbl(
   LUT,
   id = "System-Association Code",
-  name = "Original Association Description"
+  name = "Original Association Description",
+  eligible = "eligible"
 )
 
 ### Lookup table target classification
+
 IUCN_GET <- lookup_tbl(IUCN_GET_LUT, "efg_id", "efg_name")
 
 ### Membership tables
@@ -196,7 +200,7 @@ DPIRD_best_summary <- summarise_membership(
   which_round = the_round
 )
 
-## Step 4: outputs
+## Step 4: read additional data for outputs
 
 ### 4a. Read GIS data
 
@@ -205,10 +209,11 @@ DPIRD_xy <- read_sf(here::here(
   "Pre_European_Vegetation_DPIRD_006_WA_GDA2020_Public.gpkg"
 )) |>
   mutate(sa_code = as.character(round(sa_code, 1))) |>
-  st_transform(crs(epsg_code)) # Australian Albers
+  st_transform(crs(epsg_code))
 
 
 ### 4b. Standard pixel values for Global Ecosystem Atlas
+### + the T5.6
 
 t5_6_info <- tibble(
   EFG = "T5.6",
@@ -227,7 +232,19 @@ efg_info <- geco_efg_data() |>
 efg_pixel_values <- efg_info |>
   select(EFG, efg_pixel_value)
 
-### Export tabular lookup and synthesis tables
+## Step 5: export outputs
+
+xref_best_file <- "DPIRD-xref-best-candidate.csv"
+efg_lookup_file <- "IUCN-GET-pixel-lookup.csv"
+xref_clr_file <- "DPIRD-xref-target.clr"
+xref_aux_file <- "DPIRD-xref-target.tiff.aux.xml"
+xref_qml_file <- "DPIRD-xref-target.qml"
+xref_tiff_file <- "DPIRD-xref-target.tiff"
+memb_tiff_file <- "DPIRD-xref-membership.tiff"
+supp_tiff_file <- "DPIRD-xref-supporting.tiff"
+
+### 5a. Export tabular synthesis tables
+
 xref_best_tbl <- DPIRD_LUT |>
   as_tibble() |>
   left_join(DPIRD_best_summary, by = "System-Association Code") |>
@@ -235,6 +252,7 @@ xref_best_tbl <- DPIRD_LUT |>
   select(
     `System-Association Code`,
     `Original Association Description`,
+    eligible,
     EFG,
     efg_name,
     efg_pixel_value,
@@ -247,14 +265,13 @@ xref_best_tbl <- DPIRD_LUT |>
     total_interp
   )
 
-
-dtstr <- sapply(xref_best_tbl, class)
-
 write_csv(
   xref_best_tbl,
-  here::here(out_dir, "DPIRD-xref-best-candidate.csv")
+  here::here(out_dir, xref_best_file)
 )
 
+
+### 5b. Export tabular lookup  tables
 
 efg_lookup_tbl <- xref_best_tbl |>
   filter(!is.na(EFG)) |>
@@ -283,8 +300,10 @@ efg_lookup_tbl <- xref_best_tbl |>
 
 write_csv(
   efg_lookup_tbl,
-  here::here(out_dir, "IUCN-GET-pixel-lookup.csv")
+  here::here(out_dir, efg_lookup_file)
 )
+
+### 5c. Export colour file
 
 clr_lines <- efg_lookup_tbl |>
   tidyr::separate(efg_rgb_code, into = c("R", "G", "B"), sep = ",") |>
@@ -303,8 +322,56 @@ clr_lines <- efg_lookup_tbl |>
 
 writeLines(
   clr_lines,
-  here::here(out_dir, "DPIRD-xref-target.clr")
+  here::here(out_dir, xref_clr_file)
 )
+
+### 5d. Export style file
+
+qml_entries <- efg_lookup_tbl |>
+  transmute(
+    entry = sprintf(
+      '        <paletteEntry value="%d" color="%s" alpha="255" label="%s %s"/>',
+      efg_pixel_value,
+      efg_hex_code,
+      EFG,
+      efg_name
+    )
+  ) |>
+  pull(entry)
+
+qml_lines <- c(
+  "<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>",
+  '<qgis version="3.34.0" minScale="1e+08" maxScale="0" hasScaleBasedVisibilityFlag="0" styleCategories="AllStyleCategories">',
+  "  <pipe>",
+  "    <provider>",
+  '      <resampling enabled="false" maxOversampling="2" zoomedInResamplingMethod="nearestNeighbour" zoomedOutResamplingMethod="nearestNeighbour"/>',
+  "    </provider>",
+  '    <rasterrenderer band="1" type="paletted" opacity="1" alphaBand="-1" nodataColor="">',
+  "      <rasterTransparency/>",
+  "      <minMaxOrigin>",
+  "        <limits>None</limits>",
+  "        <extent>WholeRaster</extent>",
+  "        <statAccuracy>Estimated</statAccuracy>",
+  "        <cumulativeCutLower>0.02</cumulativeCutLower>",
+  "        <cumulativeCutUpper>0.98</cumulativeCutUpper>",
+  "        <stdDevFactor>2</stdDevFactor>",
+  "      </minMaxOrigin>",
+  "      <colorPalette>",
+  qml_entries,
+  "      </colorPalette>",
+  "    </rasterrenderer>",
+  '    <brightnesscontrast brightness="0" contrast="0" gamma="1"/>',
+  '    <huesaturation colorizeGreen="128" colorizeOn="0" colorizeRed="255" colorizeBlue="128" grayscaleMode="0" saturation="0" colorizeStrength="100"/>',
+  '    <rasterresampler maxOversampling="2"/>',
+  "  </pipe>",
+  "  <blendMode>0</blendMode>",
+  "</qgis>"
+)
+writeLines(qml_lines, here::here(out_dir, xref_qml_file))
+
+
+### 5f. Export raster files
+### Convert vector to raster using `fasterize`
 
 ### Combined attribute table (vector data)
 DPIRD_xy_best <- DPIRD_xy |>
@@ -318,8 +385,6 @@ DPIRD_xy_best <- DPIRD_xy |>
 ### template raster file
 rez <- 90
 DPIRD_raster <- raster(DPIRD_xy, res = rez)
-
-### Vector to raster using `fasterize`
 
 #### Best candidate
 
@@ -336,11 +401,9 @@ ctab <- efg_info |>
   transmute(value = efg_pixel_value, color = efg_hex_code)
 coltab(target_raster) <- ctab
 
-out_file <- here::here(out_dir, "DPIRD-xref-target.tiff")
-
 rast_metadata <- c(
   PROJECT = "Ecosystem Indicators Workflows",
-  TITLE = "Best candidate ecosystem function group",
+  TITLE = "Best candidate ecosystem functional group",
   DESCRIPTION = "Synthesis of crossreference from DPIRD 006 to IUCN GET"
 )
 metags(target_raster) <- rast_metadata
@@ -350,7 +413,53 @@ raster_attributes <- efg_lookup_tbl |>
     label = paste(EFG, efg_name, sep = " ")
   )
 levels(target_raster) <- raster_attributes
-writeRaster(target_raster, out_file, overwrite = TRUE)
+writeRaster(
+  target_raster,
+  here::here(out_dir, xref_tiff_file),
+  overwrite = TRUE
+)
 
 # out_file <- here::here(out_dir, "DPIRD-xref-target.tiff.vat.dbf")
 # write.dbf(data.frame(raster_attributes), file = out_file)
+
+#### Best candidate membership
+
+memb_raster <- fasterize(
+  DPIRD_xy_best,
+  DPIRD_raster,
+  field = "prop_memb",
+  fun = "max"
+) |>
+  rast()
+
+rast_metadata[
+  "TITLE"
+] <- "Membership for the best candidate ecosystem functional group"
+
+metags(memb_raster) <- rast_metadata
+
+writeRaster(memb_raster, here::here(out_dir, memb_tiff_file), overwrite = TRUE)
+
+#### Supporting interpreters
+
+supp_raster <- fasterize(
+  DPIRD_xy_best,
+  DPIRD_raster,
+  field = "supporting",
+  fun = "max"
+) |>
+  rast()
+
+rast_metadata["TITLE"] <- "Nr. of interpreters supporting assignment"
+
+metags(supp_raster) <- rast_metadata
+
+writeRaster(supp_raster, here::here(out_dir, supp_tiff_file), overwrite = TRUE)
+
+
+## Step X: Benchmarking and session info
+
+end_time <- Sys.time()
+end_time - start_time
+
+sessionInfo()
