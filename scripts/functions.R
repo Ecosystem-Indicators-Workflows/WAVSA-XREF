@@ -30,29 +30,37 @@ pivot_wide_membership_table <- function(
 
 
 clean_membership <- function(x, source, target, action = "filter") {
+  message("Using `clean_membership` from scripts/functions.R")
   stopifnot(inherits(x, "membership_tbl"))
   stopifnot(inherits(source, "lookup_tbl"))
   stopifnot(inherits(target, "lookup_tbl"))
 
   membership <- attr(x, "membership")
-
+  source_id <- attr(x, "source_id")
+  target_id <- attr(x, "target_id")
+  round_nr <- attr(x, "round")
+  interp_name <- attr(x, "interpreter")
   m <- x[[membership]]
   f1 <- is.na(m)
   f2 <- !f1 & (m < 0 | m > 1)
 
-  source_id <- attr(x, "source_id")
   sid <- x[[source_id]]
   vid <- rlang::sym(attr(source, "id"))
   elig <- rlang::sym(attr(source, "eligible"))
   eid <- dplyr::filter(source, !!elig) |> dplyr::pull(!!vid)
   f3 <- !(sid %in% eid)
 
-  target_id <- attr(x, "target_id")
   tid <- x[[target_id]]
   vid <- attr(target, "id")
   elig <- attr(target, "eligible")
   eid <- target[[vid]][target[[elig]]]
   f4 <- !(tid %in% eid)
+
+  f5 <- duplicated(x)
+  f6 <- duplicated(select(
+    x,
+    all_of(c(source_id, target_id, interp_name, round_nr))
+  ))
 
   res <- x |> mutate(flag = "")
 
@@ -85,12 +93,31 @@ clean_membership <- function(x, source, target, action = "filter") {
       mutate(flag = if_else(f4, paste(flag, "invalid target", sep = ";"), flag))
   }
 
+  if (any(f5)) {
+    message(sprintf("Flagged %s duplicated records ", sum(f5)))
+    res <- res |>
+      mutate(
+        flag = if_else(f5, paste(flag, "duplicated record", sep = ";"), flag)
+      )
+  }
+  if (any(f6)) {
+    message(sprintf("Flagged %s duplicated assignments ", sum(f6)))
+    res <- res |>
+      mutate(
+        flag = if_else(
+          f6,
+          paste(flag, "duplicated assignment", sep = ";"),
+          flag
+        )
+      )
+  }
+
   if (action == "filter") {
-    res <- dplyr::filter(x, !f1 & !f2 & !f3 & !f4)
-    if (any(f1 | f2 | f3 | f4)) {
+    res <- dplyr::filter(x, !f1 & !f2 & !f3 & !f4 & !f5 & !f6)
+    if (any(f1 | f2 | f3 | f4 | f5 | f6)) {
       message(sprintf(
         "Removed %s records with one or more flags",
-        sum(f1 | f2 | f3 | f4)
+        sum(f1 | f2 | f3 | f4 | f5 | f6)
       ))
     } else {
       message("No records removed")
