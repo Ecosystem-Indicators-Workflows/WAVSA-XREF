@@ -94,6 +94,6 @@ spatial output generation.
 
 ![FAIR scores per question](fair/fair-scores.png)
 
-<sub>Updated 2026-11-13 from commit `8d953e1` by `.fair/fair_check.R`. Edit `.fair/fair-checklist.yml`, not this block.</sub>
+<sub>Updated 2026-11-13 from commit `25d07c2` by `.fair/fair_check.R`. Edit `.fair/fair-checklist.yml`, not this block.</sub>
 <!-- FAIR:END -->
 >>>>>>> 1718f559a09f04f70d20dd3c03d310a4e93cfecf
