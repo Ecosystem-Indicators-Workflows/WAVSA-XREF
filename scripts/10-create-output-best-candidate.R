@@ -86,7 +86,7 @@ LUT <- read_xlsx(lut_file) |>
   mutate(
     `System-Association Code` = as.character(round(
       `System-Association Code`,
-      1
+      2
     ))
   )
 
@@ -152,7 +152,7 @@ DPIRD_memb <- memb_data |>
   mutate(
     `System-Association Code` = as.character(round(
       `System-Association Code`,
-      1
+      2
     ))
   ) |>
   membership_tbl(
