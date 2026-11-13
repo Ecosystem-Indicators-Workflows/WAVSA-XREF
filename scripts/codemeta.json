@@ -42,19 +42,64 @@
         "TODO"
     ],
     "author": [
-        {
-            "@type": "Person",
-            "@id": "https://orcid.org/TODO",
-            "givenName": "TODO",
-            "familyName": "TODO",
-            "email": "TODO",
-            "affiliation": {
-                "@type": "Organization",
-                "name": "TODO"
-            }
-        }
-    ],
-    "contributor": [],
+    {
+        "@type": "Person",
+      "familyName": "Ferrer-Paris",
+      "givenName": "José R.",
+      "@id": "https://orcid.org/0000-0002-9554-3395",
+      "affiliation": [{
+        "@type": "Organization",
+        "name":"Centre for Ecosystem Science, UNSW Sydney"
+      },{
+        "@type": "Organization",
+        "name":"IUCN Commission on Ecosystem Management"
+      }]
+    },
+    {
+        "@type": "Person",
+      "familyName": "Tozer",
+      "givenName": "Mark G.",
+      "affiliation": [{
+        "@type": "Organization",
+        "name":"Centre for Ecosystem Science, UNSW Sydney"
+      }]
+    },
+    {
+        "@type": "Person",
+      "familyName": "Keith",
+      "givenName": "David",
+      "affiliation": [{
+        "@type": "Organization",
+        "name":"Centre for Ecosystem Science, UNSW Sydney"
+      },{
+        "@type": "Organization",
+        "name":"IUCN Commission on Ecosystem Management"
+      }]
+    }],
+    "contributor": [
+
+    {
+      "@type": "Person",
+      "familyName": "Gould", 
+      "givenName":"Elliot",
+      "@id": "https://orcid.org/0000-0002-6585-538X",
+      "affiliation": {
+        "@type": "Organization",
+        "name":"Centre for Ecosystem Science, UNSW Sydney"
+      }
+    },
+    {
+      "familyName": "Singh", 
+      "givenName":"Abhimanyu Raj",
+      "@id": "https://orcid.org/0000-0002-2279-7060",
+      "affiliation": [{
+        "@type": "Organization",
+        "name":"Centre for Ecosystem Science, UNSW Sydney"
+      },{
+        "@type": "Organization",
+        "name":"QCIF"
+      }]
+    }],
     "maintainer": {
         "@id": "https://orcid.org/TODO"
     },
