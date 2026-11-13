@@ -7,7 +7,7 @@ execute:
   warning: false
   message: false
 params:
-  ecosystem_survey_name: "Tasmanian Terrestrial Ecosystems (TASVEG 5.0)"
+  ecosystem_survey_name: "Western Australia's pre-European vegetation system-association units"
 ---
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
@@ -22,9 +22,9 @@ metadata <- read_json("codemeta.json")
 
 **Version:** `r metadata$version`  
 **Release Date:** `r format(Sys.Date(), "%Y-%m-%d")`  
-**Dataset License:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (with source spatial data attribution to [TASVEG 5.0 © State of Tasmania](https://www.theLIST.tas.gov.au) under [CC BY 3.0 AU](http://creativecommons.org/licenses/by/3.0/au/))  
+**Dataset License:** <!--//[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (with source spatial data attribution to [TASVEG 5.0 © State of Tasmania](https://www.theLIST.tas.gov.au) under [CC BY 3.0 AU](http://creativecommons.org/licenses/by/3.0/au/))//-->  
 **Code License:** MIT  
-**Workflow Repository:** <https://github.com/Ecosystem-Indicators-Workflows/TASVEG-XREF>
+**Workflow Repository:** <https://github.com/Ecosystem-Indicators-Workflows/WAVSA-XREF>
 
 > *Note: This `README.md` is dynamically generated from [`README.qmd`](README.qmd) by inspecting the output GeoTIFFs and CSV tables. To update all statistics after regenerating the data, run `quarto render output-best-candidate/README.qmd`.*
 
@@ -41,7 +41,7 @@ metadata <- read_json("codemeta.json")
 
 
 
-**Author Contributions:** A1 led the expert elicitation process. A1, A2, A3, A4, and A5 contributed membership tables for cross-referencing. JRFP led the technical documentation and synthesis workflow. JRFP, EG, and ARS contributed scripts for data preparation, validation, analysis, and spatial output generation.
+**Author Contributions:** MGT led the expert elicitation process. MGT and DAK contributed membership tables for cross-referencing. JRFP led the technical documentation and synthesis workflow. JRFP, EG, and ARS contributed scripts for data preparation, validation, analysis, and spatial output generation.
 
 
 # Repository Checklist
