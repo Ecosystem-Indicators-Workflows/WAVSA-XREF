@@ -8,30 +8,29 @@
     {
       "name": "Ferrer-Paris, J. R.",
       "affiliation": "Centre for Ecosystem Science, UNSW Sydney; IUCN Commission on Ecosystem Management",
-      "orcid": "0000-0002-9554-3395",
-      "role":"author"
+      "orcid": "0000-0002-9554-3395"
     },
     {
       "name": "Tozer, Mark G.",
-      "affiliation": "Centre for Ecosystem Science, UNSW Sydney",
-      "role":"author"
-    },
-    {
-      "name": "Gould, Elliot",
-      "affiliation": "Centre for Ecosystem Science, UNSW Sydney",
-      "orcid": "0000-0002-6585-538X",
-      "role":"contributor"
-    },
-    {
-      "name": "Singh, Abhimanyu Raj",
-      "affiliation": "QCIF; Centre for Ecosystem Science, UNSW Sydney",
-      "orcid": "0000-0002-2279-7060",
-      "role":"contributor"
+      "affiliation": "Centre for Ecosystem Science, UNSW Sydney"
     },
     {
       "name": "Keith, David A.",
-      "affiliation": "Centre for Ecosystem Science, UNSW Sydney; IUCN Commission on Ecosystem Management",
-      "role":"author"
+      "affiliation": "Centre for Ecosystem Science, UNSW Sydney; IUCN Commission on Ecosystem Management"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Gould, Elliot",
+      "affiliation": "University of New South Wales , School of Biological, Earth and Environmental Sciences",
+      "type": "ProjectMember",
+      "orcid": "0000-0002-6585-538X"
+    },
+    {
+      "name": "Singh, Abhimanyu Raj",
+      "affiliation": "QCIF Ltd.",
+      "type": "ProjectMember",
+      "orcid": "0000-0002-2279-7060"
     }
   ],
   "keywords": [
@@ -67,17 +66,8 @@
   ],
   "version": "",
   "language": "eng",
-  "grants": [
-    {
-      "id": "10.13039/501100000923::IL240100030"
-    },
-    {
-      "id": "038sjwq14::PLT019"
-    }
-  ],
   "license": "cc-by-4.0",
   "imprint_publisher": "Zenodo",
-  
   "notes": "This work was supported by the ARC Industry Laureate Fellowship Project 'Foundations for leading the nature positive ecosystem conservation agenda' (IL240100030) led by Professor David Keith at UNSW Sydney, and the Ecosystem Indicators Workflows (EIW) project, a co-investment partnership with the Australian Research Data Commons (ARDC). The ARDC is enabled by the National Collaborative Research Infrastructure Strategy (NCRIS). Source spatial data: %s",
   "upload_type": "dataset"
 }

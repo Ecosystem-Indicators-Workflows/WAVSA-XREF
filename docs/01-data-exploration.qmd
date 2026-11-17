@@ -1,0 +1,266 @@
+---
+author: JR Ferrer-Paris
+title: Data exploration and validation
+---
+
+The purpose of this script is to import and validate the cross-referencing information consolidated in membership tables.
+
+This scripts identifies duplicates and potential problems before further steps of analysis and synthesis.
+
+ This script is intended for interactive use and data exploration.
+
+Source classification and spatial data (units):
+ > DPIRD 006 (vegetation associations)
+Target classification (units):
+ > IUCN Global Ecosystem Typology (ecosystem functional groups)
+
+
+## Setup
+
+```{r}
+#| label: Load libraries
+library(dplyr)
+library(readr)
+# library(tidyr)
+library(stringr)
+library(readxl)
+# library(foreign)
+# library(jsonlite)
+library(foreach)
+# library(ggplot2)
+# library(terra)
+library(sf)
+library(mapview)
+mapviewOptions(basemaps = c("OpenStreetMap", "Esri.WorldGrayCanvas", "Esri.WorldImagery", "OpenTopoMap"))
+library(ecoSynthesis)
+# library(geco)
+```
+
+```{r}
+#| label: File paths
+here::i_am("scripts/10-create-output-best-candidate.R")
+gisdata_dir <- here::here("data/source-data")
+xref_dir <- here::here("data/xrefdata")
+# out_dir <- here::here("results", "output1-best-candidate-raster")
+# if (!dir.exists(out_dir)) {
+#   dir.create(out_dir, recursive = TRUE)
+# }
+```
+
+```{r}
+#| label: Custom functions
+source(here::here("scripts", "functions.R"))
+```
+
+```{r}
+### Predefined parameters
+
+# the_round <- 3
+# epsg_code <- "EPSG:9473" # Australian Albers
+```
+
+## Lookup table for source classification
+
+```{r}
+lut_file <- here::here(
+    gisdata_dir,
+    "preeuropeanvegetationlutsummary-may2012.xlsx"
+)
+
+LUT <- read_xlsx(lut_file) |>
+    mutate(
+        `System-Association Code` = as.character(round(
+            `System-Association Code`,
+            2
+        )),
+        eligible = TRUE
+    )
+
+DPIRD_LUT <- lookup_tbl(
+    LUT,
+    id = "System-Association Code",
+    name = "Original Association Description",
+    eligible = "eligible"
+)
+```
+
+Lookup table target classification, based on the IUCN GET vocabulary, and adding the T5.6 EFG (proposed):
+```{r}
+#| label: Lookup table target
+IUCN_GET <- bind_rows(
+    IUCN_GET_LUT,
+    {
+        tibble(efg_id = "T5.6", eligible = TRUE)
+    }
+) |>
+    lookup_tbl("efg_id", "efg_name")
+```
+
+```{r}
+DPIRD_LUT |>
+    summarise(
+        rows = n(),
+        sa_code = n_distinct(`System-Association Code`),
+        map_units = n_distinct(`Map Unit ID`),
+        veg_type = n_distinct(`Vegetation Type No`),
+        .by = c(`Map Unit Type`)
+    )
+```
+
+```{r}
+## Step 4: read additional data for outputs
+
+### 4a. Read GIS data
+
+DPIRD_xy <- read_sf(here::here(
+    gisdata_dir,
+    "Pre_European_Vegetation_DPIRD_006_WA_GDA2020_Public.gpkg"
+)) |>
+    mutate(sa_code = as.character(round(sa_code, 1)))
+```
+
+```{r}
+### Membership tables
+
+memb_data <- foreach(
+    j = dir(xref_dir, pattern = ".csv"),
+    .combine = bind_rows
+) %do% {
+    metadata <- read_csv(
+        here::here(xref_dir, j),
+        col_names = c("name", "value"),
+        n_max = 12,
+        show_col_types = F
+    )[, 1:2]
+    data <- read_csv(here::here(xref_dir, j), skip = 13, show_col_types = F)
+    cat(sprintf(
+        "Read %s, interpreter %s\n%s\n",
+        j,
+        metadata[1, 2],
+        metadata[12, 2]
+    ))
+
+    if ("EFG_1" %in% colnames(data)) {
+        guess_round <- str_extract(j, "(?<=V)[0-9]")
+        data_with_id <- data |> mutate(ID = row_number(), .by = `System-Association Code`)
+        cat(sprintf("Assigning this to round %s\n", guess_round))
+
+        pivot_wide_membership_table(
+            xref = data_with_id,
+            original_names = c("System-Association Code", "ID"),
+            target_names = sprintf("EFG_%s", 1:4),
+            membership_values = sprintf("memb_%s", 1:4),
+            expert_name = metadata[[1, 2]],
+            round = as.numeric(guess_round)
+        )
+    }
+}
+```
+
+```{r}
+memb_data |>
+    filter(!is.na(memb), memb > 0) |>
+    group_by(expert, round) |>
+    summarise(
+        `source ids` = n_distinct(`System-Association Code`),
+        `target ids` = n_distinct(EFG),
+        .groups = "drop"
+    )
+```
+
+## Step 2: data validation
+
+```{r}
+DPIRD_memb <- memb_data |>
+    filter(!is.na(memb), memb > 0) |>
+    mutate(
+        `System-Association Code` = as.character(round(
+            `System-Association Code`,
+            2
+        ))
+    ) |>
+    membership_tbl(
+        source_id = "System-Association Code",
+        target_id = "EFG",
+        membership = "memb",
+        interpreter = "expert",
+        round = "round"
+    )
+```
+
+```{r}
+check_membership(DPIRD_memb, source = DPIRD_LUT, target = IUCN_GET)
+```
+
+```{r}
+DPIRD_memb |>
+    filter(!EFG %in% IUCN_GET$efg_id) |>
+    summarise(
+        n_distinct(`System-Association Code`),
+        .by = c(expert, round, EFG)
+    )
+```
+
+```{r}
+DPIRD_clean <- clean_membership(
+    DPIRD_memb,
+    source = DPIRD_LUT,
+    target = IUCN_GET,
+    action = "check"
+)
+```
+
+
+```{r}
+DPIRD_clean <- DPIRD_clean |> filter(!grepl("duplicated record", flag))
+DPIRD_clean |> summarise(sum(grepl("duplicated", flag)), .by = ID)
+
+DPIRD_clean |>
+    filter(ID == 1 & grepl("duplicated", flag)) |>
+    arrange(`System-Association Code`, ID, expert, round)
+```
+
+```{r}
+DPIRD_clean |>
+    mutate(dups = grepl("duplicated assignment", flag)) |>
+    summarise(
+        source_units = n_distinct(`System-Association Code`),
+        .by = c(expert, round, dups)
+    )
+```
+
+```{r}
+DPIRD_clean |>
+    mutate(dups = grepl("duplicated assignment", flag)) |>
+    filter(dups, round == 3)
+```
+
+```{r}
+DPIRD_LUT |>
+    filter(`System-Association Code` %in% "3.3") |>
+    glimpse()
+DPIRD_xy |>
+    filter(sa_code %in% "3.3") |>
+    mapview()
+DPIRD_memb |>
+    filter(`System-Association Code` == "3.3") |>
+    summarise(sum(memb), n(), .by = c(expert, round, EFG))
+```
+
+
+```{r}
+
+sid <- 358
+
+DPIRD_LUT |>
+    filter(`System-Association Code` %in% sid) |>
+    glimpse()
+DPIRD_xy |>
+    filter(sa_code %in% sid) |>
+    mapview()
+DPIRD_memb |>
+    filter(`System-Association Code` == sid) |>
+    summarise(sum(memb), mean(memb), n(), .by = c(expert, round, EFG))
+DPIRD_memb |>
+    filter(`System-Association Code` == sid, round == 3)
+```

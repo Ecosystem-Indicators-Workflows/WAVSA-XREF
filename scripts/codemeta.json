@@ -9,8 +9,8 @@
     "identifier": "TODO: Zenodo or other DOI once released",
     "version": "0.1.0",
     "dateCreated": "2026-11-12",
-    "dateModified": "TODO: YYYY-MM-DD",
-    "license": "https://spdx.org/licenses/MIT",
+    "dateModified": "2026-11-15",
+    "license": "https://spdx.org/licenses/MIT.html",
     "developmentStatus": "active",
     "programmingLanguage": [
         {
@@ -39,7 +39,7 @@
         "IUCN Global Ecosystem Typology",
         "FAIR",
         "vocabulary crosswalk",
-        "TODO"
+        "Western Australia"
     ],
     "author": [
     {
@@ -59,6 +59,7 @@
         "@type": "Person",
       "familyName": "Tozer",
       "givenName": "Mark G.",
+      "@id": "https://orcid.org/0000-0002-7373-0077",
       "affiliation": [{
         "@type": "Organization",
         "name":"Centre for Ecosystem Science, UNSW Sydney"
@@ -68,6 +69,7 @@
         "@type": "Person",
       "familyName": "Keith",
       "givenName": "David",
+      "@id": "https://orcid.org/0000-0002-7627-4150",
       "affiliation": [{
         "@type": "Organization",
         "name":"Centre for Ecosystem Science, UNSW Sydney"
@@ -110,9 +112,10 @@
     },
     "funder": {
         "@type": "Organization",
-        "name": "Australian Research Data Commons (ARDC)"
+        "name": "Australian Research Data Commons (ARDC)",
+        "@id": "https://ror.org/038sjwq14"
     },
-    "funding": "TODO: grant ID, or delete if not applicable",
+    "funding": "https://doi.org/10.3565/j5sq-a757",
     "referencePublication": [],
     "continuousIntegration": "TODO: CI URL, or delete"
 }

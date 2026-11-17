@@ -11,3 +11,5 @@ data/source-data
 results/*/*
 !results/*/README.qmd
 */air.toml
+*.html
+*_files/

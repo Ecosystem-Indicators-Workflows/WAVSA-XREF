@@ -57,7 +57,10 @@ clean_membership <- function(x, source, target, action = "filter") {
   eid <- target[[vid]][target[[elig]]]
   f4 <- !(tid %in% eid)
 
-  f5 <- duplicated(x)
+  f5 <- duplicated(select(
+    x,
+    all_of(c(source_id, target_id, interp_name, membership, round_nr))
+  ))
   f6 <- duplicated(select(
     x,
     all_of(c(source_id, target_id, interp_name, round_nr))
